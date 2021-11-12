@@ -1,16 +1,43 @@
 package com.nicolas.politics.domain;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.nicolas.politics.errorHandling.UserException;
+import com.nicolas.politics.serializer.View;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Candidato {
+    private Long id;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue @JsonView(View.Zona.Grilla.class)
+    public Long getId() {
+        return id;
+    }
+
+    @Column(length = 150) @JsonView(View.Zona.Grilla.class)
     String nombre;
+
+    @ManyToOne @JsonView(View.Zona.Grilla.class)
     Partido partido;
+
+
+    @JsonView(View.Zona.Grilla.class)
     Integer votos = 0;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OrderColumn
     List<Promesa> promesas = new ArrayList<>();
+
+    @ElementCollection
+    @OrderColumn
     List<String> opiniones = new ArrayList<>();
 
     public void validar() {
@@ -53,4 +80,5 @@ public class Candidato {
         promesas = new ArrayList<>();
         opiniones = new ArrayList<>();
     }
+
 }
