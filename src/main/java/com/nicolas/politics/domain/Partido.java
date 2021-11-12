@@ -1,13 +1,18 @@
 package com.nicolas.politics.domain;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.nicolas.politics.errorHandling.UserException;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Peronista.class, name = "PJ"),
+        @JsonSubTypes.Type(value = Preservativo.class, name = "PRE")
+})
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Partido {
     @Column(length = 150)
     String nombre;

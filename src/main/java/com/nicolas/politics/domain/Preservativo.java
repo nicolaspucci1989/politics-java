@@ -2,9 +2,14 @@ package com.nicolas.politics.domain;
 
 import com.nicolas.politics.errorHandling.UserException;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
+@Entity
 public class Preservativo extends Partido{
+
+    @Column
     LocalDate fechaCreacion;
 
     @Override
