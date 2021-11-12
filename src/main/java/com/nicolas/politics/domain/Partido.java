@@ -2,9 +2,20 @@ package com.nicolas.politics.domain;
 
 import com.nicolas.politics.errorHandling.UserException;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Partido {
+    @Column(length = 150)
     String nombre;
-    int afiliados;
+
+    @Column
+    Integer afiliados;
+
+    private Long id;
 
     public void validar() {
 
@@ -21,5 +32,15 @@ public class Partido {
         return "Partido{" +
                 "nombre='" + nombre + '\'' +
                 '}';
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Id
+    @GeneratedValue
+    public Long getId() {
+        return id;
     }
 }
