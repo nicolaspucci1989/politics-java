@@ -81,4 +81,19 @@ public class Candidato {
         opiniones = new ArrayList<>();
     }
 
+    public Integer getVotos() {
+        return votos;
+    }
+
+    public void setVotos(Integer votos) {
+        this.votos = votos;
+    }
+
+    public List<Promesa> getPromesas() {
+        return promesas;
+    }
+
+    public void setPromesas(List<Promesa> promesas) {
+        this.promesas = promesas;
+    }
 }
