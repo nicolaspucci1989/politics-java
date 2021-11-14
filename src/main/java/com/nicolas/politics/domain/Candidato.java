@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 public class Candidato {
-    private Long id;
+    public Long id;
 
     public void setId(Long id) {
         this.id = id;
@@ -32,13 +32,22 @@ public class Candidato {
     @JsonView(View.Zona.Grilla.class)
     Integer votos = 0;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @OrderColumn
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Promesa> promesas = new ArrayList<>();
 
     @ElementCollection
     @OrderColumn
     List<String> opiniones = new ArrayList<>();
+
+    public Candidato(String nombre, Partido partido, List<Promesa> promesas) {
+        this.nombre = nombre;
+        this.partido = partido;
+        this.promesas = promesas;
+    }
+
+    public Candidato() {
+    }
 
     public void validar() {
         if (nombre == null) {
@@ -96,4 +105,10 @@ public class Candidato {
     public void setPromesas(List<Promesa> promesas) {
         this.promesas = promesas;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+
 }

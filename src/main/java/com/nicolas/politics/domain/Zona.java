@@ -18,7 +18,20 @@ public class Zona {
     @JsonView(View.Zona.Grilla.class)
     Set<Candidato> candidatos = new HashSet<>();
 
-    private Long id;
+    public Zona(String descripcion, Set<Candidato> candidatos) {
+        this.descripcion = descripcion;
+        this.candidatos = candidatos;
+    }
+
+    public Long id;
+
+    public Zona() {
+
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
 
     public void validar() {
         if (descripcion == null) {

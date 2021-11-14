@@ -12,6 +12,15 @@ public class Preservativo extends Partido{
     @Column
     LocalDate fechaCreacion;
 
+    public Preservativo(String nombre, Integer afiliados, LocalDate fechaCreacion) {
+        super(nombre, afiliados);
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public Preservativo() {
+        super();
+    }
+
     @Override
     public void validar() {
         super.validar();

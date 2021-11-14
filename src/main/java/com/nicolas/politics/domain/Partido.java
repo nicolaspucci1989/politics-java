@@ -20,7 +20,16 @@ public class Partido {
     @Column
     Integer afiliados;
 
-    private Long id;
+    public Long id;
+
+    public Partido(String nombre, Integer afiliados) {
+        this.nombre = nombre;
+        this.afiliados = afiliados;
+    }
+
+    public Partido() {
+    }
+
 
     public void validar() {
 
@@ -30,6 +39,10 @@ public class Partido {
         if (afiliados < 1000) {
             throw new UserException("El partido no tiene suficientes afiliados");
         }
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 
     @Override
