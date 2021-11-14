@@ -11,9 +11,9 @@ public interface ZonaRepository extends CrudRepository<Zona, Long> {
     List<Zona> findByDescripcion(String descripcion);
 
     @EntityGraph(attributePaths= {
-            "candidates.promesas",
-            "candidates.partido",
-            "candidates.opiniones"
+            "candidatos.promesas",
+            "candidatos.partido",
+            "candidatos.opiniones"
     })
     @Override
     Optional<Zona> findById(Long aLong);

@@ -42,8 +42,8 @@ public class PoliticsBootstrap implements InitializingBean {
 
     private void initPartidos() {
         frejuli = new Peronista("FREJULI", 6000, true);
-        frejuli = new Peronista("Perone", 5000, false);
-        frejuli = new Preservativo("PRIME", 1200, LocalDate.parse("2009-06-16"));
+        perone = new Peronista("Perone", 5000, false);
+        prime = new Preservativo("PRIME", 1200, LocalDate.parse("2009-06-16"));
 
         this.crearPartidos(frejuli);
         this.crearPartidos(perone);
@@ -52,12 +52,10 @@ public class PoliticsBootstrap implements InitializingBean {
 
     private void  crearPartidos(Partido partido) {
         var partidoEnRepo = repoPartidos.findByNombre(partido.getNombre());
-        if (partidoEnRepo == null) {
-            repoPartidos.save(partido);
-        } else {
+        if (partidoEnRepo != null) {
             partido.id = partidoEnRepo.id;
-            repoPartidos.save(partido);
         }
+        repoPartidos.save(partido);
     }
 
     public void initCandidatos() {
@@ -88,7 +86,7 @@ public class PoliticsBootstrap implements InitializingBean {
 
     private void initZonas() {
         nacional = new Zona("Elecciones nacionales", new HashSet<>(Arrays.asList(sosa, benitez, ramos, rota)));
-        nacional = new Zona("Springfield", new HashSet<>(Arrays.asList(yapura, monti, cafrune)));
+        springfield = new Zona("Springfield", new HashSet<>(Arrays.asList(yapura, monti, cafrune)));
 
         this.crearZona(nacional);
         this.crearZona(springfield);
@@ -96,17 +94,15 @@ public class PoliticsBootstrap implements InitializingBean {
 
     private void crearZona(Zona zona) {
         var listaZonas = repoZonas.findByDescripcion(zona.getDescripcion());
-        if (listaZonas.isEmpty()) {
-            repoZonas.save(zona);
-        } else {
+        if (!listaZonas.isEmpty()) {
             var zonaBD = listaZonas.get(0);
             zona.id = zonaBD.id;
-            repoZonas.save(zona);
         }
+        repoZonas.save(zona);
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         initPartidos();
         initCandidatos();
         initZonas();

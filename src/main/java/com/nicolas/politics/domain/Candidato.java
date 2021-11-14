@@ -10,6 +10,10 @@ import java.util.List;
 
 @Entity
 public class Candidato {
+
+    @Column(length = 150) @JsonView(View.Zona.Grilla.class)
+    String nombre;
+
     public Long id;
 
     public void setId(Long id) {
@@ -22,22 +26,13 @@ public class Candidato {
         return id;
     }
 
-    @Column(length = 150) @JsonView(View.Zona.Grilla.class)
-    String nombre;
-
-    @ManyToOne @JsonView(View.Zona.Grilla.class)
     Partido partido;
-
 
     @JsonView(View.Zona.Grilla.class)
     Integer votos = 0;
 
-    @OrderColumn
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Promesa> promesas = new ArrayList<>();
 
-    @ElementCollection
-    @OrderColumn
     List<String> opiniones = new ArrayList<>();
 
     public Candidato(String nombre, Partido partido, List<Promesa> promesas) {
@@ -98,6 +93,8 @@ public class Candidato {
         this.votos = votos;
     }
 
+    @OrderColumn
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public List<Promesa> getPromesas() {
         return promesas;
     }
@@ -110,5 +107,26 @@ public class Candidato {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
+    @ElementCollection
+    @OrderColumn
+    public List<String> getOpiniones() {
+        return opiniones;
+    }
+
+    public void setOpiniones(List<String> opiniones) {
+        this.opiniones = opiniones;
+    }
+
+    @ManyToOne @JsonView(View.Zona.Grilla.class)
+    public Partido getPartido() {
+        return partido;
+    }
+
+    public void setPartido(Partido partido) {
+        this.partido = partido;
+    }
 }

@@ -30,6 +30,17 @@ public class Partido {
     public Partido() {
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Integer getAfiliados() {
+        return afiliados;
+    }
+
+    public void setAfiliados(Integer afiliados) {
+        this.afiliados = afiliados;
+    }
 
     public void validar() {
 

@@ -10,12 +10,9 @@ import java.util.Set;
 
 @Entity
 public class Zona {
-    @Column(length = 150)
-    @JsonView({View.Zona.Plana.class, View.Zona.Grilla.class})
+
     String descripcion;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JsonView(View.Zona.Grilla.class)
     Set<Candidato> candidatos = new HashSet<>();
 
     public Zona(String descripcion, Set<Candidato> candidatos) {
@@ -31,6 +28,12 @@ public class Zona {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    @Column(length = 150)
+    @JsonView({View.Zona.Plana.class, View.Zona.Grilla.class})
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public void validar() {
@@ -58,5 +61,16 @@ public class Zona {
     @JsonView({View.Zona.Plana.class, View.Zona.Grilla.class})
     public Long getId() {
         return id;
+    }
+
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonView(View.Zona.Grilla.class)
+    public Set<Candidato> getCandidatos() {
+        return candidatos;
+    }
+
+    public void setCandidatos(Set<Candidato> candidatos) {
+        this.candidatos = candidatos;
     }
 }
