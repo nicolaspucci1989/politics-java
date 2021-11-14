@@ -26,8 +26,8 @@ public class CandiatoService {
                 .orElseThrow(() -> new NotFoundException("La persona candidata con identificador " + id + " no existe"));
     }
 
-    public void buscarPorId(Long id) {
-        this
+    public Candidato buscarPorId(Long id) {
+        return this
                 .candidatoRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("La persona candidata con identificador " + id + " no existe"));
