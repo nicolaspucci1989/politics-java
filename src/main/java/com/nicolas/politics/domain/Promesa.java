@@ -11,17 +11,17 @@ import java.time.LocalDate;
 @Entity
 public class Promesa {
 
-    @Column
     LocalDate fecha;
 
-    @Column
     String accionPrometida;
+
     private Long id;
 
     public Promesa() {
     }
 
     public Promesa(String accionPrometida) {
+        fecha = LocalDate.now();
         this.accionPrometida = accionPrometida;
     }
 
@@ -42,5 +42,23 @@ public class Promesa {
     @GeneratedValue
     public Long getId() {
         return id;
+    }
+
+    @Column
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    @Column
+    public String getAccionPrometida() {
+        return accionPrometida;
+    }
+
+    public void setAccionPrometida(String accionPrometida) {
+        this.accionPrometida = accionPrometida;
     }
 }
