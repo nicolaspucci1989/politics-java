@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TestHelper {
 
-    static public <T extends Object> List<T> fromJsonToList(String json, Class<T> expectedType) throws JsonProcessingException {
+    static public <T> List<T> fromJsonToList(String json, Class<T> expectedType) throws JsonProcessingException {
         var type = mapper().getTypeFactory().constructCollectionType(List.class, expectedType);
         return mapper().readValue(json, type);
     }
