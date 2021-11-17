@@ -11,11 +11,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import static com.nicolas.politics.controller.TestHelper.fromJson;
+import static com.nicolas.politics.controller.TestHelper.fromJsonToList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static com.nicolas.politics.controller.TestHelper.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
@@ -52,5 +52,12 @@ public class ZonaControllerTest {
 
         var zona = fromJson(responseEntity.getContentAsString(), Zona.class);
         assertFalse(zona.getCandidatos().isEmpty(), "La zona debería tener candidates");
+    }
+
+    @Test
+    @DisplayName("no podemos traer información de una zona inexistente")
+    public void zonaInexistente() throws Exception {
+        var responseEntity = mockMvc.perform(MockMvcRequestBuilders.get("/zonas/100")).andReturn().getResponse();
+        assertEquals(404, responseEntity.getStatus());
     }
 }
