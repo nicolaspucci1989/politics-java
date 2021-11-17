@@ -8,9 +8,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.List;
 
 public class TestHelper {
+
     static public <T extends Object> List<T> fromJsonToList(String json, Class<T> expectedType) throws JsonProcessingException {
         var type = mapper().getTypeFactory().constructCollectionType(List.class, expectedType);
         return mapper().readValue(json, type);
+    }
+
+    static public <T> T fromJson(String json, Class<T> expectedType) throws JsonProcessingException {
+        return mapper().readValue(json, expectedType);
     }
 
     static ObjectMapper mapper() {

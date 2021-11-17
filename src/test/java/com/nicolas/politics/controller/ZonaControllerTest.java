@@ -11,8 +11,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static com.nicolas.politics.controller.TestHelper.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,5 +38,19 @@ public class ZonaControllerTest {
         assertEquals(2, zonas.size());
         // los zonas no traen candidatos
         assertEquals(0, zonas.get(0).getCandidatos().size());
+    }
+
+    @Test
+    @DisplayName("al traer el dato de una zona trae las personas candidatas también")
+    public void zonaConCandidatos() throws Exception {
+        var zonas = (List<Zona>) repoZonas.findAll();
+        assertFalse(zonas.isEmpty(), "No hay zonas cargadas en el sistema");
+
+        var ID_ZONA = zonas.get(0).id;
+        var responseEntity = mockMvc.perform(MockMvcRequestBuilders.get("/zonas/" + ID_ZONA)).andReturn().getResponse();
+        assertEquals(200, responseEntity.getStatus());
+
+        var zona = fromJson(responseEntity.getContentAsString(), Zona.class);
+        assertFalse(zona.getCandidatos().isEmpty(), "La zona debería tener candidates");
     }
 }
